@@ -19,7 +19,7 @@ var strawberries = {
 }
 var products = [apples, oranges, bananas, strawberries]  
 
-for (var productIndex = 0; productIndex <products.length; productIndex++) {
+for (var productIndex = 0; productIndex < products.length; productIndex++) {
     var buttonsContainer= document.getElementById('buttons')
     var product = products[productIndex]
     var buttonsHTML = '<div class="col-md-2">'
@@ -29,7 +29,7 @@ for (var productIndex = 0; productIndex <products.length; productIndex++) {
     buttonsHTML +=        '</div>'
     buttonsHTML +=        '<div class="panel-body">'
     buttonsHTML +=          '<p>'
-    buttonsHTML +=            '<strong>Price: </strong> £0.99'
+    buttonsHTML +=            '<strong>Price: </strong>' + product.price
     buttonsHTML +=          '</p>'
     buttonsHTML +=          '<button type="button" class="btn btn-primary" onclick="transaction.add(\'' + product.name + '\')">Add</button>'
     buttonsHTML +=        '</div>'
@@ -38,5 +38,27 @@ for (var productIndex = 0; productIndex <products.length; productIndex++) {
 
     buttonsContainer.innerHTML += buttonsHTML
 
+}
+
+var transaction = {}
+transaction.items = []
+transaction.add = function(productName){
+    for (productIndex=0; productIndex < products.length; productIndex++) {
+        var currentProduct=products[productIndex]
+
+        if (currentProduct.name===productName) {
+            var selectedProduct = currentProduct
+            break
+        }
+    }
+    if (selectedProduct) {
+        var newItem = {
+            id: (Math.random() * 100000),
+            name: selectedProduct.name,
+            price: selectedProduct.price
+        }
+        this.items.push(newItem)
+        console.log(this.items)
+    }
 }
 
